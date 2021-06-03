@@ -1,9 +1,9 @@
 
 # Colomn names and column indices to read
-columns = {'date':0,'time':1,'tempout':2}
+columns = {'date':0,'time':1,'tempout':2,'windspeed':7}
 
 # Data types for each column (only is non-string)
-types = {'tempout':float}
+types = {'tempout':float,'windspeed':float}
 
 # Initialize my data variable
 data = {}
@@ -20,7 +20,8 @@ filename = "data/wxobs20170821.txt"
 with open(filename, 'r') as datafile:
     # read the first 3 lines (header)
     for _ in range (3):
-        datafile.readline()
+        headerline = datafile.readline()
+        #print(headerline)
     # read and parse the rest of the file
     for line in datafile:
         split_line = line.split()
@@ -39,7 +40,7 @@ with open(filename, 'r') as datafile:
 #    print(datum)
 #print(data[8])
 #print(data[8][0:-1:2])
-print(data['tempout'])
+#print(data['tempout'])
 
 
 
