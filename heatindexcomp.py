@@ -1,4 +1,6 @@
 from readdata import read_data
+from printing import print_comparison
+from computation import compute_heatindex
 
 # Colomn names and column indices to read
 columns = {'date':0, 'time':1, 'tempout':2, 'humout':5, 'heatindex':13} 
@@ -6,32 +8,8 @@ columns = {'date':0, 'time':1, 'tempout':2, 'humout':5, 'heatindex':13}
 # Data types for each column (only if non-string)
 types = {'tempout': float,'humout': float, 'heatindex': float}
 
-# Initialize my data variable
-data = {}
-for column in columns:
-    data[column] = []
-
 # Read the data file
 data = read_data(columns,types=types)
-
-# Compute the heat index 
-def compute_heatindex(t,hum):
-    a = -42.379
-    b = 2.04901523
-    c = 10.14333127
-    d = 0.22475541
-    e = 0.00683783
-    f = 0.05481717
-    g = 0.00122874
-    h = 0.00085282
-    i = 0.00000199
-   
-    rh = hum/100
-
-    hi = (a+(b*t)+(c*rh)+(d*t*rh)+(e*t**2)+(f*rh**2)+(g*rh*t**2)+(h*t*rh**2)+(i*t**2*rh**2))
-    return hi
-
-
 
 # Running the function to compute heat index
 heatindex = []
@@ -43,13 +21,7 @@ for temp, humout in zip(data['tempout'], data['humout']):
 #    print(f'{wc_data:.5f} {wc_comp:.5f} {wc_data-wc_comp:.5f}')
 
 # Output comparison of data
-print('                Original  Computed')
-print(' Date    Time  HeatIndex HeatIndex Difference')
-print('------- ------ --------- --------- ----------')
-zip_data = zip(data['date'],data['time'],data['heatindex'],heatindex)
-for date, time, hi_orig, hi_comp in zip_data:
-    hi_diff = hi_orig - hi_comp
-    print(f'{date} {time:>6} {hi_orig:9.6f} {hi_comp:9.6f} {hi_diff:10.6f}')
+print_comparison('heatindex',data['date'],data['time'],data['heatindex'],heatindex)
 
 
 # DEBUG
