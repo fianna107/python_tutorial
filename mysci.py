@@ -1,9 +1,9 @@
 
 # Colomn names and column indices to read
-columns = {'date':0, 'time':1, 'tempout':2, 'windspeed':7}
+columns = {'date':0, 'time':1, 'tempout':2, 'windspeed':7, 'windchill':12}
 
 # Data types for each column (only if non-string)
-types = {'tempout': float,'windspeed': float}
+types = {'tempout': float,'windspeed': float, 'windchill': float}
 
 # Initialize my data variable
 data = {}
@@ -11,7 +11,7 @@ for column in columns:
     data[column] = []
 
 # Initialize my data variable
-data = {'date':[], 'time':[],'tempout':[], 'windspeed':[]}
+# data = {'date':[], 'time':[],'tempout':[], 'windspeed':[]}
 
 #Read the data file
 
@@ -46,8 +46,9 @@ windchill = []
 for temp, windspeed in zip(data['tempout'], data['windspeed']):
     windchill.append(compute_windchill(temp,windspeed))
 
-print (windchill)
-
+# DEBUG
+for wc_data, wc_comp in zip(data['windchill'],windchill):
+    print(f'{wc_data:.5f} {wc_comp:.5f} {wc_data-wc_comp:.5f}')
 
 # DEBUG
 #for datum in data [0:10:2]: #[start:stop:step]
@@ -56,8 +57,8 @@ print (windchill)
 #print(data[8][0:-1:2])
 #print(data['tempout'])
 
-for i,j in zip([1,2],[3,4,5]):
-    print (i,j)
+#for i,j in zip([1,2],[3,4,5]):
+#    print (i,j)
 
 
 
