@@ -37,6 +37,22 @@ def compute_heatindex(t,hum):
     hi = (a+(b*t)+(c*rh)+(d*t*rh)+(e*t**2)+(f*rh**2)+(g*rh*t**2)+(h*t*rh**2)+(i*t**2*rh**2))
     return hi
 
+def compute_dewpoint(t,h):
+    """
+    Compute the dewpoint temperature given temperature and humidity
+    t: The temperature in unit if F (float)
+    h: The relative humidity in unit of % (float)
+    """
 
+    tempC = (t-32)*5/9 #convert from deg F to deg C
+    rh = h/100
 
+    b = 18.678
+    c = 257.14 #deg C
 
+    gamma = math.log(rh)+(b*tempC)/(c+tempC)
+    tdp = c*gamma/(b-gamma)
+
+    tdp_F = 9/5*tdp +32 #convert from deg C to deg F
+
+    return tdp_F
